@@ -1,0 +1,5 @@
+SELECT
+j.*
+FROM joined)insoections_violations as j
+INNER JOIN company_location_counts as c
+ON j.parent_company=c.parent_company;
