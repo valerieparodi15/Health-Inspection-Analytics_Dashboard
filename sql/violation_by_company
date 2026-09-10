@@ -1,0 +1,11 @@
+-- Used for exploratory analysis
+
+SELECT
+parent_company,
+violation_description,
+YEAR(activity_date) as year,
+COUNT(*) as company_violations_count
+FROM dbo.big_chain_violations
+WHERE
+violation_description IS NOT NULL
+GROUP BY parent_cmpany,violation_description,year(activity_date);
