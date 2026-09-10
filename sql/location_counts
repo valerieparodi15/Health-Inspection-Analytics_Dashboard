@@ -1,6 +1,6 @@
 SELECT
 parent_company
-count(*) as location_counts
-from inspections_clean
-group by parent_company
-having count(*)>10
+COUNT(*) as location_counts
+FROM inspections_clean
+GROUP BY parent_company
+HAVING COUNT(*)>10;
