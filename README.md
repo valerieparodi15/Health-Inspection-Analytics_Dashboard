@@ -1,2 +1,155 @@
-# Health-Inspection-Analytics_Dashboard
-Interactive Power Bi Dashboard for analyzing inspections, violation counts, business and city preformance as well as risk levels
+# LA County Health Inspections Dashboard
+
+An interactive Power BI dashboard analyzing health and safety violations across businesses in Los Angeles County, with detailed breakdowns by year, city, business type, and risk level.
+
+## Table of Contents
+- [Overview](#overview)
+- [Dashboard Features](#dashboard-features)
+- [Data Pipeline](#data-pipeline)
+- [How to Use](#how-to-use)
+- [Key Metrics](#key-metrics)
+- [Requirements](#requirements)
+
+## Overview
+
+This dashboard provides comprehensive insights into violation patterns across LA County restaurants and markets. It helps identify compliance trends, high-risk areas, and businesses with recurring violations.
+
+- **Data Source**: 
+  - Dataset 1: "Environmental Health Restaurant and Market Violations 07/01/2023 to 06/30/2026"
+  - Provider: Los Angeles County Department of Public Health
+  - URL: https://data.lacounty.gov/datasets/5eaea9f89b7549ee841da7617d3a9cba/about
+  - Dataset 2: "Environmental Health Restaurant and Market Inspections 07/01/2023 to 06/30/2026"
+  - Provider: Los Angeles County Department of Public Health
+  - URL: https://data.lacounty.gov/datasets/19b6607ac82c4512b10811870975dbdc/about
+- **Geographic Coverage**: Los Angeles County
+- **Time Period**: 07/01/2023-06/30/2026
+- **Target Audience**: Health inspectors, business owners, compliance officers, policy makers,
+
+## Dashboard Features
+
+### Main Visualizations
+- **Violation Counts Overview** - Total violations by year showing trends over time
+- **Top 10 Violations** - Which Violation Categories have the highest number of recorded violations
+- **Violation Count By Business and Category** - Counts of categorized violations by business
+- **Inspection Ratings by Year** - Shows how businesses ratings are distributed across the years
+- **Interactive Filters** - Slice and dice by:
+  - Year
+  - City
+  - Business Name
+  - Risk Level (High, Medium, Low)
+
+### Key Pages/Tabs
+- Overview/Summary
+- City Analysis
+- Business Trends
+- Violations Trend
+- Risk Level Analysis
+
+## Data Pipeline
+
+### 1. Data Cleaning (R)
+Raw violation and inspection data was cleaned and prepared using R.
+
+**See [`scripts/data_cleaning.R`](scripts/data_cleaning.R) for the full cleaning process**
+
+**Steps:**
+- Loaded raw violation and inspection records
+- Handled missing/inconsistent data
+- Standardized business names
+- Parsed Columns
+- Output: Clean datasets (`data/cleaned/violations_cleaned.csv`)
+
+### 2. Pre-Analysis & Aggregation (SQL)
+SQL queries were used for data exploration and creating aggregated tables for Power BI.
+
+**See [`sql/`](sql/) directory for all queries**
+
+**Key Queries:**
+- `sql/data_exploration.sql` - Initial data profiling and quality checks
+- `sql/violations_by_year_city.sql` - Aggregations by year and city
+- `sql/violations_by_business.sql` - Business-level violation summaries
+- `sql/risk_level_analysis.sql` - Risk categorization analysis
+- `sql/final_dataset.sql` - Final denormalized dataset for Power BI
+
+### 3. Power BI Dashboard
+The cleaned and aggregated data is imported into Power BI for interactive visualization.
+
+- **File**: `LA_County_Violations_Dashboard.pbix`
+- **Data Model**: 
+  - Inspections_clean (one row per inspection)
+  - Violations_clean (multiple row per inspection)
+  - Big_chain_violations (Violations for Businesses with 10+ locations)
+  - Violation_mapping (standardizes violations into categories)
+  - RiskSort
+  - CalendarDate
+  - CategorySort
+
+## How to Use
+
+1. **Open the Dashboard**
+   - Open `LA_County_Violations_Dashboard.pbix` in Power BI Desktop or Power BI Service
+
+2. **Filter the Data**
+   - Use the slicers to filter by Year, City, Business, and Risk Level
+   - Click "Clear filters" to reset
+
+3. **Explore Trends**
+   - Hover over visualizations for detailed tooltips
+   - Click on bars/sections to drill down into specific data points
+
+4. **Export/Share Results**
+   - Export visuals as images or PDFs
+   - Share specific filtered views with stakeholders
+
+## Key Metrics
+
+- **Total Violations**: Count of all violation records
+- **Violations by Year**: Trend analysis over time
+- **High-Risk Violations**: Count of violations categorized as high severity
+- **Most Violated Cities**: Top 10 cities by violation count
+- **Repeat Offenders**: Businesses with multiple violations
+
+## Data Dictionary
+
+| Field | Description |
+|-------|-------------|
+| Business Name | Name of the business |
+| City | City in LA County where violation occurred |
+| Violation Date | Date the violation was issued |
+| Risk Level | Severity category (High/Medium/Low) |
+| Violation Type | Category of violation |
+| Year | Year of violation |
+| Business Type | Category/industry of business |
+
+## Requirements
+
+### For Data Processing
+- **R** (version 3.6+)
+  - Required packages: tidyverse, dplyr, readr, stringr
+  - Install: `install.packages(c("tidyverse", "dplyr", "readr", "stringr"))`
+
+- **SQL Database** (e.g., SQLite, PostgreSQL, SQL Server)
+  - Connection details in `sql/config.sql`
+
+### For Dashboard
+- **Power BI Desktop** (latest version) OR
+- **Power BI Online** access to view published version
+
+## How to Reproduce
+
+```bash
+# 1. Run data cleaning in R
+# Open scripts/data_cleaning.R and execute
+# Output: data/cleaned/violations_cleaned.csv
+
+# 2. Load cleaned data into SQL database
+# Run sql/load_data.sql
+
+# 3. Run pre-analysis SQL queries
+# Execute all .sql files in sql/ directory in order
+# Output: Aggregated tables for Power BI
+
+# 4. Refresh Power BI Dashboard
+# Open LA_County_Violations_Dashboard.pbix
+# Refresh data connections
+# All visualizations auto-update
