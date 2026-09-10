@@ -1,3 +1,6 @@
+-- View used to create big_company_violations
+
+CREATE VIEW company_location_counts AS
 SELECT
 parent_company
 COUNT(*) as location_counts
