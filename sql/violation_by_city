@@ -1,0 +1,10 @@
+-- Used for exploratory purposes
+
+SELECT
+facility_city,
+violation_description,
+YEAR(activity_date) as year,
+COUNT(*) as city_violations_count
+FROM dbo.joined_inspections_violations
+WHERE violation_description IS NOT NULL
+GROUP BY facility_city,violation_description, YEAR(activity_date);
