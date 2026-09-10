@@ -65,11 +65,10 @@ SQL queries were used for data exploration and creating aggregated tables for Po
 **See [`sql/`](sql/) directory for all queries**
 
 **Key Queries:**
-- `sql/data_exploration.sql` - Initial data profiling and quality checks
-- `sql/violations_by_year_city.sql` - Aggregations by year and city
-- `sql/violations_by_business.sql` - Business-level violation summaries
-- `sql/risk_level_analysis.sql` - Risk categorization analysis
-- `sql/final_dataset.sql` - Final denormalized dataset for Power BI
+- `sql/joined_inspections_violations.sql` - joins the two main datasets
+- `sql/violation_by_company.sql` - Summarizes count of specific violations by company per year (exploratory)
+- `sql/big_chain_violations.sql` - Filters only businesses with 10 or more locations 
+- `sql/violation_by_city.sql` - Summarizes count of specific violations by cities per year (exploratory)
 
 ### 3. Power BI Dashboard
 The cleaned and aggregated data is imported into Power BI for interactive visualization.
