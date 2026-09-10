@@ -2,6 +2,6 @@ SELECT
 i.serial_number,i.activity_date,i.service_description,i.parent_company,
 i,program_name,i.facility_city,i.size,i.risk_levle,i.score,i.grade,
 v.serial_number as violation_serial, v.violation_description,v.points
-from dbo.inspections_clean as i
-left join dbo.violations_clean as v
-on i.serial_number=v.serial_number;
+FROM dbo.inspections_clean as i
+LEFT JOIN dbo.violations_clean as v
+ON i.serial_number=v.serial_number;
