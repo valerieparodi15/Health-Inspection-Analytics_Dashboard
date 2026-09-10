@@ -1,0 +1,6 @@
+SELECT
+parent_company
+count(*) as location_counts
+from inspections_clean
+group by parent_company
+having count(*)>10
